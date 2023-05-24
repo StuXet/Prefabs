@@ -19,14 +19,20 @@ public class Controller : MonoBehaviour
         {
             speed += speedTransRate * Time.deltaTime;
         }
-        animator.SetFloat("Input", Mathf.Max(Mathf.Abs(horizontalInput), Mathf.Abs(verticalInput)));
         transform.Translate(new Vector2(horizontalInput, verticalInput) * speed * Time.deltaTime);
 
-        //animator.SetFloat("SpeedMult", speed);
-
-        if (speed == maxSpeed && Input.GetAxis("Horizontal") + Input.GetAxis("Vertical") == 0)
+        if (horizontalInput != 0 || verticalInput != 0)
         {
+            animator.SetBool("Moving", true);
+        }
+        else
+        {
+            animator.SetBool("Moving", false);
             speed = 1;
         }
+
+        //speed multiplier
+        animator.SetFloat("SpeedMult", speed);
+
     }
 }
